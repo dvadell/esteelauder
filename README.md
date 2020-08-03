@@ -1,7 +1,7 @@
 # Estee Lauder challenge 
 * [Description](https://agileengine.gitlab.io/interview/test-tasks/fsNDJmGOAwqCpzZx/)
 
-To run the web app, first clone this repo and run:
+To run the web app, first clone this repo and run this inside the project:
 
 ```
 docker-compose up -d
