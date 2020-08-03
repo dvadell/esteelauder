@@ -10,7 +10,7 @@ docker-compose up -d
 Then run the tests. This will also add some transactions:
 
 ```
-docker-compose exec tests ./tests.pl
+docker-compose exec tests ./test.pl
 ```
 
 Then go to http://localhost:3000/
