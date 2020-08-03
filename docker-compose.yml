@@ -1,0 +1,21 @@
+version: '3'
+#   docker run --rm -ti -v $PWD/code:/code -p 3000:3000 tianon/mojo morbo /code/index.pl
+services:
+  app:
+    build: .
+    volumes:
+        - ./code:/code
+    ports:
+            - "3000:3000"
+    command: morbo /code/index.pl
+    environment:
+        - LC_ALL=C.UTF-8
+        - LANG=C.UTF-8
+  tests:
+    build: ./tests
+    tty: true
+    volumes:
+        - ./tests:/tests
+    environment:
+        - LC_ALL=C.UTF-8
+        - LANG=C.UTF-8

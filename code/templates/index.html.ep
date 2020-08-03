@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title> Accounting notebook </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Accounting notebook</h1>
+    <div class="accordion" id="transaction-accordeon">
+    </div>
+  </div>
+
+<script>
+  const createAccordeonItem = transaction => {
+    let newItem = '<div class="card z-depth-0 bordered">'
+        newItem = newItem + '<div class="card-header" id="' + transaction.id + '">'
+        newItem = newItem + '<h5 class="mb-0">'
+        newItem = newItem + '<button class="btn btn-link collapsed" type="button" data-toggle="collapse"'
+        newItem = newItem + '        data-target="#collapse'+ transaction.id +'" aria-expanded="false" aria-controls="collapse'
+        newItem = newItem + transaction.id + '">'
+        newItem = newItem + transaction.type + ": " + transaction.amount
+        newItem = newItem + '</button>'
+        newItem = newItem + '</h5>'
+        newItem = newItem + '</div>'
+        newItem = newItem + '<div id="collapse' + transaction.id + '"'
+        newItem = newItem +     ' class="collapse" aria-labelledby="' + transaction.id +'" data-parent="#transaction-accordeon">'
+        newItem = newItem + '<div class="card-body">'
+        newItem = newItem + '<br>Date: ' + transaction.effectiveDate + '</br>'
+        newItem = newItem + '<br>Id: ' + transaction.id + '</br>'
+        newItem = newItem + '</div>'
+        newItem = newItem + '</div>'
+        newItem = newItem + '</div>'
+        console.log({newItem})
+     $('#transaction-accordeon').append(newItem)
+
+     // Colors for the debits
+     if (transaction.type === "debit") {
+        $('#' + transaction.id).addClass('debit')
+     }
+  }
+
+  const updateAccordeon = transactions => {
+    console.log(transactions)
+    transactions.map(transaction => createAccordeonItem(transaction))
+  }
+
+  fetch('/api/transactions')
+    .then(response => response.json())
+    .then(transactions => updateAccordeon(transactions))
+</script>
+</body>
+</html>
